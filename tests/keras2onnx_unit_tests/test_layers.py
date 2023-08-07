@@ -279,6 +279,15 @@ def test_tf_clip(runner):
     assert runner('onnx_tf_clip', onnx_model, data, expected)
 
 
+def test_tf_resize_images(runner):
+    model = Sequential()
+    model.add(Lambda(lambda x: K.resize_images(x, 480, 640, "channels_first", "nearest"), input_shape=[5, 5, 5]))
+    data = np.random.randint(-5, 15, size=(1, 5, 5, 5)).astype(np.float32)
+    expected = model.predict(data)
+    onnx_model = convert_keras(model, 'test_tf_resize_images')
+    assert runner('onnx_tf_resize_images', onnx_model, data, expected)
+
+
 @pytest.mark.skipif(get_maximum_opset_supported() < 12,
                     reason="Result mismatch on ORT, skip conversion for unsupported types.")
 def test_tf_pow(runner):
