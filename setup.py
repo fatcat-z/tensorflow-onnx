@@ -12,8 +12,8 @@ import setuptools.command.develop
 import setuptools.command.install
 from setuptools import setup, find_packages, Command
 
-TOP_DIR = os.path.realpath(os.path.dirname(__file__))
 SRC_DIR = os.path.join(TOP_DIR, 'tf2onnx')
+TOP_DIR = os.path.realpath(os.path.dirname(__file__))
 
 try:
     git_version = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=TOP_DIR).decode('ascii').strip()
