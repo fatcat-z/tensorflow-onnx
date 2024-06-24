@@ -12,8 +12,8 @@ import setuptools.command.develop
 import setuptools.command.install
 from setuptools import setup, find_packages, Command
 
-SRC_DIR = os.path.join(TOP_DIR, 'tf2onnx')
 TOP_DIR = os.path.realpath(os.path.dirname(__file__))
+NEW_SRC_DIR = os.path.join(TOP_DIR, 'tf2onnx')
 
 try:
     git_version = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=TOP_DIR).decode('ascii').strip()
@@ -38,7 +38,7 @@ class create_version(Command):
 
     def run(self):
         alv2_license = '# SPDX-License-Identifier: Apache-2.0\n\n'
-        with open(os.path.join(SRC_DIR, 'version.py'), 'w') as f:
+        with open(os.path.join(NEW_SRC_DIR, 'version.py'), 'w') as f:
             f.write(alv2_license + dedent('''
             version = '{version}'
             git_version = '{git_version}'
