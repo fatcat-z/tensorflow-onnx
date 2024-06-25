@@ -34,10 +34,10 @@ jobs:
           skip_tflite: 'True'
 
       - name: Upload Test Results
-        shell: bash
+        if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: Test Results (${{ inputs.tf_version }}-${{ inputs.python_version }}-${{ inputs.os }})
+          name: Test Results (Py38-TF2.9-18-ubuntu)
           path: ./**/test-results-*.xml
 
 
@@ -60,10 +60,10 @@ jobs:
           skip_tflite: 'False'
 
       - name: Upload Test Results
-        shell: bash
+        if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: Test Results (${{ inputs.tf_version }}-${{ inputs.python_version }}-${{ inputs.os }})
+          name: Test Results (Py39-TF2.15-18-ubuntu)
           path: ./**/test-results-*.xml
 
   # run_tests:
