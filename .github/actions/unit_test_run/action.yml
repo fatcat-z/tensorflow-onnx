@@ -59,7 +59,7 @@ runs:
         ls
 
     - name: Run unit_test (Windows)
-      shell: bash
+      shell: cmd
       if: runner.os == 'Windows'
       run: |
         set TF2ONNX_TEST_BACKEND=onnxruntime
@@ -70,10 +70,9 @@ runs:
         python -m pytest --cov=tf2onnx --cov-report=term --disable-pytest-warnings -r s tests --cov-append --junitxml=junit/test-results.xml
         ls
 
-    # - name: Upload Test Results
-    #   shell: bash
-    #   if: always()
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: Test Results (${{ inputs.tf_version }}-${{ inputs.python_version }}-${{ inputs.os }})
-    #     path: ./**/test-results-*.xml
+    - name: Upload Test Results
+      shell: bash
+      uses: actions/upload-artifact@v3
+      with:
+        name: Test Results (${{ inputs.tf_version }}-${{ inputs.python_version }}-${{ inputs.os }})
+        path: ./**/test-results-*.xml
