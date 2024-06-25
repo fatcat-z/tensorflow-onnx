@@ -38,7 +38,7 @@ runs:
         ./tests/utils/setup_test_env.sh ${{ inputs.tf_version }} ${{ inputs.ort_version }} ${{ inputs.onnx_version }}
 
     - name: Fix Paths (Windows only)
-      shell: bash
+      shell: cmd
       if: runner.os == 'Windows'
       run: |
         $site_dir = python -c "import site; print(site.getsitepackages()[1])"
