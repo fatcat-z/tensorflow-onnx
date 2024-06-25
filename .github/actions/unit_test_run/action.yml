@@ -38,6 +38,7 @@ runs:
         ./tests/utils/setup_test_env.sh ${{ inputs.tf_version }} ${{ inputs.ort_version }} ${{ inputs.onnx_version }}
 
     - name: Fix Paths (Windows only)
+      shell: bash
       if: runner.os == 'Windows'
       run: |
         $site_dir = python -c "import site; print(site.getsitepackages()[1])"
@@ -46,6 +47,7 @@ runs:
         echo "##vso[task.prependpath]$base_dir/Library/bin"
 
     - name: Run unit_test (Linux)
+      shell: bash
       if: runner.os == 'Linux'
       run: |
         export TF2ONNX_TEST_BACKEND=onnxruntime
@@ -57,6 +59,7 @@ runs:
         ls
 
     - name: Run unit_test (Windows)
+      shell: bash
       if: runner.os == 'Windows'
       run: |
         set TF2ONNX_TEST_BACKEND=onnxruntime
@@ -68,6 +71,7 @@ runs:
         ls
 
     - name: Upload Test Results
+      shell: bash
       if: always()
       uses: actions/upload-artifact@v3
       with:
