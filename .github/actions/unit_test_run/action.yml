@@ -19,7 +19,7 @@ inputs:
   skip_tflite:
     description: 'Python version'
 
-jobs:
+runs:
   unit_test:
     strategy:
       fail-fast: false
