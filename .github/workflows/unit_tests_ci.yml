@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
 
       - id: min_version
-        uses: actions/tensorflow-onnx@v1
+        uses: ./.github/workflows/unit_test_run
         with:
           os: 'ubuntu-latest'
           tf_version: '2.9.0'
