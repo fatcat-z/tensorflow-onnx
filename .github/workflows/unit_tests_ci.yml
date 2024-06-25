@@ -32,6 +32,7 @@ jobs:
           onnx_version: '1.16.1'
           opset_version: '18'
           skip_tflite: 'True'
+        secrets: inherit # pass all secrets
 
   # run_tests:
   #   strategy:
