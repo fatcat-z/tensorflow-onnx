@@ -73,7 +73,7 @@ jobs:
         name:
           - 'py39-tf2.10'
           - 'py39-tf2.15'
-        os: ['ubuntu-latest', 'windows-2022']
+        os: ['windows-2022']
         opset_version: ['18', '15']
         ort_version: ['1.16.3']
         onnx_version: ['1.16.1']
