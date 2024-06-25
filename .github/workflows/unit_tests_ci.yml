@@ -22,7 +22,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - id: min_version
+      - name: Run Tests (Py38-TF2.9-18)
         uses: ./.github/actions/unit_test_run
         with:
           os: 'ubuntu-latest'
@@ -32,6 +32,39 @@ jobs:
           onnx_version: '1.16.1'
           opset_version: '18'
           skip_tflite: 'True'
+
+      - name: Upload Test Results
+        shell: bash
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test Results (${{ inputs.tf_version }}-${{ inputs.python_version }}-${{ inputs.os }})
+          path: ./**/test-results-*.xml
+
+
+  run_test_max_py_latest_tf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Tests (Py39-TF2.15-18)
+        uses: ./.github/actions/unit_test_run
+        with:
+          os: 'ubuntu-latest'
+          tf_version: '2.15.0'
+          python_version: '3.9'
+          ort_version: '1.16.3'
+          onnx_version: '1.16.1'
+          opset_version: '18'
+          skip_tflite: 'False'
+
+      - name: Upload Test Results
+        shell: bash
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test Results (${{ inputs.tf_version }}-${{ inputs.python_version }}-${{ inputs.os }})
+          path: ./**/test-results-*.xml
 
   # run_tests:
   #   strategy:

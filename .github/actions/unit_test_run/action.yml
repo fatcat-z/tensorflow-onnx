@@ -11,13 +11,13 @@ inputs:
   python_version:
     description: 'Python version'
   ort_version:
-    description: 'Python version'
+    description: 'ONNXRuntime version'
   onnx_version:
-    description: 'Python version'
+    description: 'ONNX version'
   opset_version:
-    description: 'Python version'
+    description: 'OPSET version'
   skip_tflite:
-    description: 'Python version'
+    description: 'Skip TFLite tests'
 
 runs:
   using: "composite"
@@ -69,10 +69,3 @@ runs:
         set TF2ONNX_SKIP_TF_TESTS=False
         python -m pytest --cov=tf2onnx --cov-report=term --disable-pytest-warnings -r s tests --cov-append --junitxml=junit/test-results.xml
         ls
-
-    - name: Upload Test Results
-      shell: bash
-      uses: actions/upload-artifact@v3
-      with:
-        name: Test Results (${{ inputs.tf_version }}-${{ inputs.python_version }}-${{ inputs.os }})
-        path: ./**/test-results-*.xml
