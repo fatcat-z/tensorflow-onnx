@@ -1,0 +1,63 @@
+name: Keras2onnx Unit Test (CI)
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}-${{ github.event_name == 'workflow_dispatch' }}
+  cancel-in-progress: true
+
+jobs:
+  Test_min_py_with_min_tf: # Do not change this name because it is used in Ruleset of this repo.
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Tests (Py38-TF2.9)
+        uses: ./.github/actions/keras_unit_test
+        with:
+          tf_version: '2.9.0'
+          python_version: '3.8'
+          ort_version: '1.16.3'
+          onnx_version: '1.16.1'
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test Results (Py38-TF2.9-ubuntu)
+          path: ./**/test-results-*.xml
+
+  Test_max_py_with_latest_tf: # Do not change this name because it is used in Ruleset of this repo.
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Tests (Py310-TF2.15)
+        uses: ./.github/actions/keras_unit_test
+        with:
+          tf_version: '1.15.0'
+          python_version: '3.7'
+          ort_version: '1.14.1'
+          onnx_version: '1.14.1'
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test Results (Py310-TF2.15-ubuntu)
+          path: ./**/test-results-*.xml
