@@ -22,15 +22,17 @@ runs:
       shell: bash
       run: |
           python -m pip install --upgrade pip
-          echo ${{ matrix.tf_version }}
+          echo "----- new"
 
-          if [[ '${{ matrix.tf_version }}' == 1.* ]]; then 
+          echo '${{ inputs.tf_version }}'
+
+          if [[ ${{ inputs.tf_version }} == 1.* ]]; then 
               pip install numpy==1.19.0 
           else 
               pip install numpy 
           fi
 
-          pip install -e .
+          # pip install -e .
 
           echo "----- List all of depdencies:"
           pip freeze --all
