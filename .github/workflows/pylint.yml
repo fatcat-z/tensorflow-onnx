@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  pylint:
+  run_test_min_py_min_tf:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
