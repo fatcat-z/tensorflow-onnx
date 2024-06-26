@@ -22,7 +22,9 @@ runs:
       shell: bash
       run: |
           python -m pip install --upgrade pip
-          if [[ ${{ matrix.tf_version }} == 1.* ]]; then 
+          echo ${{ matrix.tf_version }}
+
+          if [[ '${{ matrix.tf_version }}' == 1.* ]]; then 
               pip install numpy==1.19.0 
           else 
               pip install numpy 
